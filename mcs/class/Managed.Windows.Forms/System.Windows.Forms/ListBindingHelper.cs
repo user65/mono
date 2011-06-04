@@ -75,6 +75,8 @@ namespace System.Windows.Forms
 					item = dataSource;
 				}
 			}
+                        if (item is Type)
+                                return null; //Datasource is a type, thus getting a value is invalid
 
 			if (item != null)
 				return property.GetValue (item);
@@ -118,6 +120,13 @@ namespace System.Windows.Forms
 				return typeof (object);
 			}
 
+                        if (dataSource is Type)
+                        {
+                               return (dataSource as Type);
+                               //Returns the correct object type, as dataSource.GetType returns
+                               //a generic type which cause find method not to find the required 
+                               //data member
+                        }
 			return dataSource.GetType ();
 		}
 
