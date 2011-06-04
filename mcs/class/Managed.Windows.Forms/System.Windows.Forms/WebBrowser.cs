@@ -513,8 +513,15 @@ namespace System.Windows.Forms
 
 		protected virtual void OnNavigating(WebBrowserNavigatingEventArgs e)
 		{
-			if (Navigating != null)
+                     if (!e.Cancel)
+                     {
+                         if (Navigating != null)
 				Navigating (this, e);
+                     }
+                     else
+                     {
+                        Stop();
+                     }		
 		}
 
 		protected virtual void OnNewWindow(CancelEventArgs e)
